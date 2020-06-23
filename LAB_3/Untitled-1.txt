@@ -1,0 +1,36 @@
+Aqui te pegare los metodos que cree para llamar a las vistas.
+Y tambien las rutas C:
+
+Esta va en ClientController.
+
+public function showView()
+    {
+        
+        $address = Address::all();
+        $user = User::find(9);
+        $clients = $user->client_id;
+        $client = Client::find($clients);
+        $purchaseOrder = PurchaseOrder::all();
+        $addresses = $address->where('client_id',$client->id);
+        $purchaseOrders = $purchaseOrder->where('client_id',$client->id);
+
+        return view('userPanelControl', compact('client','addresses','purchaseOrders','user'));
+    }
+
+Y esta es la ruta.
+
+Route::get('/client','ClientController@showView');
+
+Esta va en ClientController.
+
+public function showViewAdmin()
+    {
+        $records = WebpageRecord::all();
+        $requests = RestaurantRequest::all();
+
+        return view('adminPanelControl', compact('records','requests'));
+    }
+
+Y esta es la ruta.
+
+Route::get('/admin','ClientController@showViewAdmin');
